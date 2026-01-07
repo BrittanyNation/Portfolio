@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brittany Nation - Front-End Developer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --secondary: #8b5cf6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --accent: #ec4899;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background: var(--light);
+        }
+
+        /* Navigation */
+        nav {
+            background: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu {
+            display: none;
+            font-size: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 6rem 2rem 2rem;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-content .subtitle {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            opacity: 0.9;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .btn {
+            padding: 0.875rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: white;
+            color: var(--primary);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background: white;
+            color: var(--primary);
+        }
+
+        /* Section Styles */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--gray);
+            margin-bottom: 3rem;
+            font-size: 1.1rem;
+        }
+
+        /* Skills Section */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-category {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .skill-category:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .skill-category h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-tag {
+            background: var(--light);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+        }
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+
+        .project-tech {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .project-description {
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            padding: 0.5rem 1.25rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: background 0.3s;
+        }
+
+        .project-link:hover {
+            background: var(--primary-dark);
+        }
+
+        .project-link.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .project-link.secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Contact Section */
+        .contact {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-align: center;
+            border-radius: 12px;
+            padding: 4rem 2rem;
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 2rem;
+        }
+
+        .contact-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: transform 0.3s;
+        }
+
+        .contact-link:hover {
+            transform: scale(1.1);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 4rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .mobile-menu {
+                display: block;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content .subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">BN</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <button class="mobile-menu">☰</button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Brittany Nation</h1>
+            <p class="subtitle">Front-End Developer</p>
+            <p>Building responsive, interactive web applications with modern JavaScript, React, and thoughtful design. Passionate about creating user-friendly experiences and writing clean, maintainable code.</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-subtitle">Technologies and tools I work with to bring ideas to life</p>
+        
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Frontend Development</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">HTML5</span>
+                    <span class="skill-tag">CSS3</span>
+                    <span class="skill-tag">JavaScript ES6+</span>
+                    <span class="skill-tag">React.js</span>
+                    <span class="skill-tag">jQuery</span>
+                    <span class="skill-tag">Bootstrap</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Design & UX</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Responsive Design</span>
+                    <span class="skill-tag">CSS Animations</span>
+                    <span class="skill-tag">Flexbox</span>
+                    <span class="skill-tag">Grid</span>
+                    <span class="skill-tag">Mobile-First</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Tools & Technologies</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git/GitHub</span>
+                    <span class="skill-tag">VS Code</span>
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Canvas API</span>
+                </div>
+            </div>
+
+            <div class="skill-category">
+                <h3>Backend (Learning)</h3>
+                <div class="skill-tags">
+                    <span class="skill-tag">Node.js</span>
+                    <span class="skill-tag">Express.js</span>
+                    <span class="skill-tag">PostgreSQL</span>
+                    <span class="skill-tag">Python</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <h2 class="section-title">Featured Projects</h2>
+        <p class="section-subtitle">A selection of my best work showcasing interactive applications and responsive design</p>
+        
+        <div class="projects-grid">
+            <!-- Movie Search App -->
+            <div class="project-card">
+                <div class="project-image">🎬</div>
+                <div class="project-content">
+                    <h3 class="project-title">Movie Search App</h3>
+                    <p class="project-tech">JavaScript • CSS3 • API Integration</p>
+                    <p class="project-description">Dynamic movie search application that fetches real-time data from an external API. Features responsive card layout with smooth animations and detailed movie information display.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/movie-app" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/movie-app/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GitHub Profile Finder -->
+            <div class="project-card">
+                <div class="project-image">👤</div>
+                <div class="project-content">
+                    <h3 class="project-title">GitHub Profile Finder</h3>
+                    <p class="project-tech">JavaScript • REST API • DOM Manipulation</p>
+                    <p class="project-description">Search tool that retrieves GitHub user profiles using the GitHub API. Displays user statistics, repositories, and profile information with error handling and loading states.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/github-profiles" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/github-profiles/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Drawing App -->
+            <div class="project-card">
+                <div class="project-image">🎨</div>
+                <div class="project-content">
+                    <h3 class="project-title">Interactive Drawing App</h3>
+                    <p class="project-tech">JavaScript • Canvas API • Event Handling</p>
+                    <p class="project-description">Creative drawing application using HTML5 Canvas with color selection, adjustable brush sizes, and responsive touch/mouse interactions for all devices.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/drawing-app" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/drawing-app/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Generator -->
+            <div class="project-card">
+                <div class="project-image">🔐</div>
+                <div class="project-content">
+                    <h3 class="project-title">Password Generator</h3>
+                    <p class="project-tech">JavaScript • Algorithms • Security</p>
+                    <p class="project-description">Secure password generator with customizable options including length, numbers, symbols, and special characters. Features copy-to-clipboard functionality.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/password-generator" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/password-generator/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes App -->
+            <div class="project-card">
+                <div class="project-image">📝</div>
+                <div class="project-content">
+                    <h3 class="project-title">Notes App</h3>
+                    <p class="project-tech">JavaScript • Local Storage • CRUD</p>
+                    <p class="project-description">Full-featured notes application with create, read, update, and delete operations. Uses localStorage for persistent data across browser sessions.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/notes-app" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/notes-app/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz App -->
+            <div class="project-card">
+                <div class="project-image">❓</div>
+                <div class="project-content">
+                    <h3 class="project-title">Interactive Quiz App</h3>
+                    <p class="project-tech">JavaScript • HTML5 • CSS3</p>
+                    <p class="project-description">Dynamic quiz application with score tracking, progress visualization, and immediate feedback. Features question navigation and comprehensive result summary.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/quiz-app" class="project-link" target="_blank">View Code</a>
+                        <a href="#" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- App Landing Page -->
+            <div class="project-card">
+                <div class="project-image">📱</div>
+                <div class="project-content">
+                    <h3 class="project-title">App Landing Page</h3>
+                    <p class="project-tech">HTML5 • CSS3 • Responsive Design</p>
+                    <p class="project-description">Modern, fully responsive landing page built with mobile-first approach. Features clean semantic markup, CSS animations, and organized stylesheet architecture.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/app-landing-page" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/app-landing-page/" class="project-link secondary" target="_blank">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-Commerce Site -->
+            <div class="project-card">
+                <div class="project-image">🛍️</div>
+                <div class="project-content">
+                    <h3 class="project-title">E-Commerce Website</h3>
+                    <p class="project-tech">HTML5 • CSS3 • Responsive Design</p>
+                    <p class="project-description">Product showcase website with responsive image galleries, product cards, and mobile-optimized layout. Demonstrates commercial web design capabilities.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/Ecommerce-website" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/Ecommerce-website/" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated Navigation -->
+            <div class="project-card">
+                <div class="project-image">🎭</div>
+                <div class="project-content">
+                    <h3 class="project-title">Animated Navigation</h3>
+                    <p class="project-tech">CSS3 • JavaScript • Animations</p>
+                    <p class="project-description">Responsive navigation menu featuring smooth CSS transitions, transforms, and a mobile hamburger menu with JavaScript toggle functionality.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/BrittanyNation/animated-navigation" class="project-link" target="_blank">View Code</a>
+                        <a href="https://brittanynation.github.io/animated-navigation/#" class="project-link secondary">Live Demo</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 3rem;">
+            <a href="https://github.com/BrittanyNation" class="btn btn-primary" target="_blank">View All 60+ Projects on GitHub</a>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="contact">
+            <h2 class="section-title" style="color: white;">Let's Build Something Together</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9;">I'm currently seeking opportunities as a Junior Front-End Developer. Let's connect!</p>
+            
+            <div class="contact-links">
+                <a href="mailto:brittanynation07@gmail.com" class="contact-link">
+                    📧 brittanynation07@gmail.com
+                </a>
+                <a href="tel:9314192569" class="contact-link">
+                    📱 (931) 419-2569
+                </a>
+                <a href="https://github.com/BrittanyNation" class="contact-link" target="_blank">
+                    💻 GitHub Profile
+                </a>
+                <a href="#" class="contact-link">
+                    💼 LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Brittany Nation. Built with HTML, CSS, and JavaScript.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.7;">Clarksville, TN | Available for Remote & Hybrid Opportunities</p>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle (basic implementation)
+        const mobileMenu = document.querySelector('.mobile-menu');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenu.addEventListener('click', () => {
+            navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+            navLinks.style.position = 'absolute';
+            navLinks.style.top = '100%';
+            navLinks.style.left = '0';
+            navLinks.style.right = '0';
+            navLinks.style.background = 'white';
+            navLinks.style.flexDirection = 'column';
+            navLinks.style.padding = '1rem';
+            navLinks.style.boxShadow = '0 4px 6px rgba(0,0,0,0.1)';
+        });
+    </script>
+</body>
+</html>
